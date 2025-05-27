@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  orders:
+    build: ./api_pedidos
+    container_name: api_pedidos
+    ports:
+      - "3002:3002"
+    depends_on:
+      - dbmysql
+      - products
+      - redis  # Novo serviço
+    networks:
+      - app-network
+
+  products:
+    build: ./api_produtos
+    container_name: produtos_api
+    ports:
+      - "3001:3001"
+    networks:
+      - app-network
+
+  payment:
+    build: ./api_pagamentos
+    container_name: api_pagamentos
+    ports:
+      - "3003:3003"
+    networks:
+      - app-network
+
+  dbmysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: ecommerce
+    ports:
+      - "3307:3306"
+    networks:
+      - app-network
+
+  redis:  # Novo serviço
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
