@@ -9,7 +9,7 @@ services:
     depends_on:
       - dbmysql
       - products
-      - redis  # Novo serviço
+      - redis 
     networks:
       - app-network
 
@@ -39,7 +39,7 @@ services:
     networks:
       - app-network
 
-  redis:  # Novo serviço
+  redis:  
     image: redis:alpine
     ports:
       - "6379:6379"
