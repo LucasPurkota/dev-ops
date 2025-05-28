@@ -17,6 +17,3 @@ if ($request_uri === '/payment') {
     http_response_code(404);
     echo json_encode(['error' => 'Not found']);
 }
-
-// O servidor web pode ser configurado no Dockerfile com:
-// php -S 0.0.0.0:3003
